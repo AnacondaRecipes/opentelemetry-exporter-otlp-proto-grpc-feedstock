@@ -1,6 +1,6 @@
 {% set name = "opentelemetry-exporter-otlp-proto-grpc" %}
 {% set version = "1.12.0" %}
-
+{% set sha256 = "b69a5b080cabcb4e69e5fb27f697def3fb59685b11360fa2db01bea827b9cc97" %}
 
 package:
   name: {{ name|lower }}
@@ -8,33 +8,29 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/opentelemetry-exporter-otlp-proto-grpc-{{ version }}.tar.gz
-  sha256: b69a5b080cabcb4e69e5fb27f697def3fb59685b11360fa2db01bea827b9cc97
+  sha256: {{ sha256 }}
 
 build:
   number: 0
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  # noarch: python
+  skip: true  # [py<36]
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python
+    - setuptools
+    - wheel
   run:
-    - backoff <3.0.0,>=1.10.0
-    - googleapis-common-protos ~=1.52
+    - python
     - grpcio <2.0.0,>=1.0.0
-    - opentelemetry-api ~=1.3
+    - googleapis-common-protos >=1.52,<2
+    - opentelemetry-api >=1.3,<2
+    - opentelemetry-sdk >=1.11,<2
     - opentelemetry-proto ==1.12.0
-    - opentelemetry-sdk ~=1.11
-    - python >=3.6
-    # - pytest-grpc 
-    # - pytest-grpc 
-    # - pytest-grpc 
-    # - pytest-grpc 
-    # - pytest-grpc 
-    # - pytest-grpc 
-    # - pytest-grpc 
-    # - pytest-grpc 
+    - backoff >=1.10.0,<2  # [py<37]
+    - backoff >=1.10.0,<3  # [py>=37]
 
 test:
   imports:
@@ -46,10 +42,18 @@ test:
     - pip
 
 about:
+  summary: OpenTelemetry Python / Protobuf over gRPC Exporter
   home: https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-grpc
-  summary: OpenTelemetry Collector Protobuf over gRPC Exporter
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENSE
+  doc_url: https://opentelemetry-python.readthedocs.io/en/latest/
+  doc_source_url: https://github.com/open-telemetry/opentelemetry-python/tree/main/docs
+  description: |-
+    OpenTelemetry, also known as OTel for short, is a vendor-neutral open-source
+    Observability framework for instrumenting, generating, collecting, and exporting
+    telemetry data such as traces, metrics, logs. As an industry-standard
+    it is natively supported by a number of vendors.
 
 extra:
   recipe-maintainers:
