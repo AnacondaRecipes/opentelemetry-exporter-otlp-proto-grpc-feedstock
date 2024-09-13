@@ -14,7 +14,7 @@ build:
   number: 0
   # noarch: python
   skip: true  # [py<36]
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
@@ -56,5 +56,10 @@ about:
     it is natively supported by a number of vendors.
 
 extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/49522
+    reason: Dependency for chainlit
+  recipe-maintainers:
+    - ianaobi
   recipe-maintainers:
     - mariusvniekerk
