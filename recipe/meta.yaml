@@ -1,6 +1,5 @@
 {% set name = "opentelemetry-exporter-otlp-proto-grpc" %}
-{% set version = "1.26.0" %}
-{% set sha256 = "a65b67a9a6b06ba1ec406114568e21afe88c1cdb29c464f2507d529eb906d8ae" %}
+{% set version = "1.30.0" %}
 
 package:
   name: {{ name|lower }}
@@ -8,11 +7,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/opentelemetry_exporter_otlp_proto_grpc-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: d0f10f0b9b9a383b7d04a144d01cb280e70362cccc613987e234183fd1f01177
 
 build:
   number: 0
   skip: true  # [py<38]
+  skip: true  # [s390x]   
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
 
 requirements:
@@ -24,11 +24,11 @@ requirements:
     - python
     - deprecated >=1.2.6
     - googleapis-common-protos >=1.52,<2.dev0
-    - grpcio >=1.0.0,<2.0.0
+    - grpcio >=1.63.2,<2.0.0
     - opentelemetry-api >=1.15,<2.dev0
-    - opentelemetry-proto ==1.26.0
-    - opentelemetry-sdk >=1.26.0,<1.27.dev0
-    - opentelemetry-exporter-otlp-proto-common ==1.26.0
+    - opentelemetry-proto ==1.30.0
+    - opentelemetry-sdk >=1.30.0,<1.31.dev0
+    - opentelemetry-exporter-otlp-proto-common ==1.30.0
 
 test:
   imports:
