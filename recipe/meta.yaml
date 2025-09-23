@@ -30,6 +30,10 @@ requirements:
     - opentelemetry-exporter-otlp-proto-common =={{ version }}
     - typing-extensions >=4.6.0
 
+# E   ModuleNotFoundError: No module named 'opentelemetry.test'
+# https://pypi.org/project/opentelemetry-test-utils, not in the main channel.
+{% set ignore_tests = " --ignore=tests/test_otlp_metrics_exporter.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_otlp_trace_exporter.py" %}
 test:
   source_files:
     - tests
@@ -37,7 +41,7 @@ test:
     - opentelemetry.exporter.otlp.proto.grpc
   commands:
     - pip check
-    - pytest -v tests
+    - pytest -v tests {{ ignore_tests }}
   requires:
     - pip
     - pytest
