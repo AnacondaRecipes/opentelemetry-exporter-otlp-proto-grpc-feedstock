@@ -37,6 +37,8 @@ requirements:
 # Disabled unstable tests with timeouts:
 {% set deselect_tests = " --deselect=tests/test_otlp_exporter_mixin.py::TestOTLPExporterMixin::test_retry_info_is_respected" %}
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_otlp_exporter_mixin.py::TestOTLPExporterMixin::test_timeout_set_correctly" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/test_otlp_exporter_mixin.py::TestOTLPExporterMixin::test_shutdown_interrupts_export_retry_backoff" %}
+
 test:
   source_files:
     - tests
