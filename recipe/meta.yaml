@@ -1,5 +1,5 @@
 {% set name = "opentelemetry-exporter-otlp-proto-grpc" %}
-{% set version = "1.37.0" %}
+{% set version = "1.38.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: f55bcb9fc848ce05ad3dd954058bc7b126624d22c4d9e958da24d8537763bec5
+  sha256: 2473935e9eac71f401de6101d37d6f3f0f1831db92b953c7dcc912536158ebd6
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   skip: true  # [py<39]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
@@ -26,7 +26,7 @@ requirements:
     - grpcio >=1.66.2  # [py>=313]
     - opentelemetry-api >=1.15,<2
     - opentelemetry-proto =={{ version }}
-    - opentelemetry-sdk >=1.37.0,<1.38
+    - opentelemetry-sdk >=1.38.0,<1.39.0.dev
     - opentelemetry-exporter-otlp-proto-common =={{ version }}
     - typing-extensions >=4.6.0
 
@@ -52,18 +52,18 @@ test:
     - pytest
 
 about:
-  summary: OpenTelemetry Python / Protobuf over gRPC Exporter
   home: https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-grpc
   license: Apache-2.0
   license_family: Apache
   license_file: LICENSE
-  doc_url: https://opentelemetry-python.readthedocs.io
-  dev_url: https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-grpc
+  summary: OpenTelemetry Python / Protobuf over gRPC Exporter
   description: |-
     OpenTelemetry, also known as OTel for short, is a vendor-neutral open-source
     Observability framework for instrumenting, generating, collecting, and exporting
     telemetry data such as traces, metrics, logs. As an industry-standard
     it is natively supported by a number of vendors.
+  doc_url: https://opentelemetry-python.readthedocs.io
+  dev_url: https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-grpc
 
 extra:
   recipe-maintainers:
