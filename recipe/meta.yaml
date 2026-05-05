@@ -1,5 +1,5 @@
 {% set name = "opentelemetry-exporter-otlp-proto-grpc" %}
-{% set version = "1.38.0" %}
+{% set version = "1.40.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: 2473935e9eac71f401de6101d37d6f3f0f1831db92b953c7dcc912536158ebd6
+  sha256: bd4015183e40b635b3dab8da528b27161ba83bf4ef545776b196f0fb4ec47740
 
 build:
   number: 0
@@ -23,10 +23,11 @@ requirements:
     - python
     - googleapis-common-protos >=1.57,<2
     - grpcio >=1.63.2,<2.0.0  # [py<313]
-    - grpcio >=1.66.2  # [py>=313]
+    - grpcio >=1.66.2,<2.0.0  # [py==313]
+    - grpcio >=1.75.1,<2.0.0  # [py>=314]
     - opentelemetry-api >=1.15,<2
     - opentelemetry-proto =={{ version }}
-    - opentelemetry-sdk >=1.38.0,<1.39.0.dev
+    - opentelemetry-sdk >=1.40.0,<1.41.0.dev
     - opentelemetry-exporter-otlp-proto-common =={{ version }}
     - typing-extensions >=4.6.0
 
@@ -34,10 +35,9 @@ requirements:
 # https://pypi.org/project/opentelemetry-test-utils, not in the main channel.
 {% set ignore_tests = " --ignore=tests/test_otlp_metrics_exporter.py" %}
 {% set ignore_tests = ignore_tests + " --ignore=tests/test_otlp_trace_exporter.py" %}
-# Disabled unstable tests with timeouts:
-{% set deselect_tests = " --deselect=tests/test_otlp_exporter_mixin.py::TestOTLPExporterMixin::test_retry_info_is_respected" %}
-{% set deselect_tests = deselect_tests + " --deselect=tests/test_otlp_exporter_mixin.py::TestOTLPExporterMixin::test_timeout_set_correctly" %}
-{% set deselect_tests = deselect_tests + " --deselect=tests/test_otlp_exporter_mixin.py::TestOTLPExporterMixin::test_shutdown_interrupts_export_retry_backoff" %}
+# 1.40.0: this module now also imports opentelemetry.test (test-utils not on pkgs/main).
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_otlp_exporter_mixin.py" %}
+{% set deselect_tests = "" %}
 
 test:
   source_files:
