@@ -12,7 +12,8 @@ source:
 build:
   number: 4
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
-  skip: true  # [py<36]
+  # protobuf<6 and abseil<20250127.1.0a0 conflicts with py314
+  skip: true  # [py<36 or py>=314]
 
 requirements:
   host:
