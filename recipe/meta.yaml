@@ -1,5 +1,5 @@
 {% set name = "opentelemetry-exporter-otlp-proto-grpc" %}
-{% set version = "1.43.0" %}
+{% set version = "1.45.1" %}
 
 package:
   name: {{ name }}
@@ -29,6 +29,7 @@ requirements:
     - opentelemetry-proto =={{ version }}
     - opentelemetry-sdk >=1.43.0,<1.44.0
     - opentelemetry-exporter-otlp-proto-common =={{ version }}
+    - opentelemetry-exporter-otlp-common ==0.66b1
     - typing-extensions >=4.6.0
 
 # E   ModuleNotFoundError: No module named 'opentelemetry.test'
